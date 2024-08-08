@@ -129,6 +129,8 @@ public class UserLogin extends JFrame implements ActionListener {
                             JOptionPane.ERROR_MESSAGE);
                 }
             }
+
+            new UserDashboard();
         } else if (e.getActionCommand().equals("signup")) {
             String uname = tf1.getText();
             String pass = new String(ps.getPassword());
@@ -152,6 +154,8 @@ public class UserLogin extends JFrame implements ActionListener {
                             JOptionPane.ERROR_MESSAGE);
                 }
             }
+
+            new UserDashboard();
         } else if (e.getActionCommand().equals("back")) {
             this.dispose();
             new Main();
