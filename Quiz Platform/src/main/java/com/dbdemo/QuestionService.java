@@ -31,7 +31,7 @@ public class QuestionService extends JFrame implements ActionListener {
     }
 
     JButton b1, b2, b3, b4;
-    HashMap <Integer, question> qMap;
+    HashMap<Integer, question> qMap;
 
     public QuestionService() {
         super("Questions Service");
@@ -134,10 +134,9 @@ public class QuestionService extends JFrame implements ActionListener {
             this.dispose();
             new AdminDashBoard().setVisible(true);
         } else if (e.getActionCommand().equals("b2")) {
-            new Search(qMap).setVisible(true);
+            new Search(qMap);
         } else if (e.getActionCommand().equals("b3")) {
-            new update(qMap).setVisible(true);
-            ;
+            new update(qMap);
         } else if (e.getActionCommand().equals("b4")) {
             new delete(qMap);
         }
@@ -236,7 +235,7 @@ class Search extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("b1")) {
             this.dispose();
-            new QuestionService().setVisible(true);
+            new QuestionService();
         } else if (e.getActionCommand().equals("b2")) {
             try {
                 int id = Integer.parseInt(t1.getText().trim());
@@ -343,7 +342,7 @@ class delete extends JFrame implements ActionListener {
         int id = 0;
         if (e.getActionCommand().equals("b1")) {
             this.dispose();
-            new QuestionService().setVisible(true);
+            new QuestionService();
         } else if (e.getActionCommand().equals("b2")) {
             try {
                 id = Integer.parseInt(t1.getText().trim());
@@ -525,7 +524,7 @@ class update extends JFrame implements ActionListener {
         int id = 0;
         if (e.getActionCommand().equals("b1")) {
             this.dispose();
-            new QuestionService().setVisible(true);
+            new QuestionService();
         } else if (e.getActionCommand().equals("b2")) {
             id = Integer.parseInt(t6.getText().trim());
             int choice = JOptionPane.showConfirmDialog(this, "Are you sure want to update?", "Confirm",

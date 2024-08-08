@@ -117,7 +117,7 @@ public class UserLogin extends JFrame implements ActionListener {
                         String pas = rs.getString("password");
 
                         if (uname.equals(name) && pass.equals(pas)) {
-                            new QuestionService();
+                            new UserDashboard();
                         } else {
                             errorMsg.setText("Invalid username or password. Enter again");
                             tf1.setText("");
@@ -129,8 +129,6 @@ public class UserLogin extends JFrame implements ActionListener {
                             JOptionPane.ERROR_MESSAGE);
                 }
             }
-
-            new UserDashboard();
         } else if (e.getActionCommand().equals("signup")) {
             String uname = tf1.getText();
             String pass = new String(ps.getPassword());
@@ -149,16 +147,19 @@ public class UserLogin extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "User added successfully");
                     tf1.setText("");
                     ps.setText("");
+                    new UserDashboard();
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(this, "Error adding user to database", "Error",
                             JOptionPane.ERROR_MESSAGE);
                 }
             }
-
-            new UserDashboard();
         } else if (e.getActionCommand().equals("back")) {
             this.dispose();
-            new Main();
+            try {
+                Main.main(null);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         }
     }
 }

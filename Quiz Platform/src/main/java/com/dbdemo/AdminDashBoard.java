@@ -70,20 +70,20 @@ public class AdminDashBoard extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("b1")) {
             this.dispose();
-            new LoginFrame().setVisible(true);
-        }
-        else if(e.getActionCommand().equals("b2")){
-            new NewQuestions().setVisible(true);
-        }
-        else if(e.getActionCommand().equals("b3")){
-            new QuestionService().setVisible(true);
-        }
-        else if(e.getActionCommand().equals("b4")){
-            
-        }
-        else if(e.getActionCommand().equals("b5")){
+            new LoginFrame();
+        } else if (e.getActionCommand().equals("b2")) {
+            new NewQuestions();
+        } else if (e.getActionCommand().equals("b3")) {
+            new QuestionService();
+        } else if (e.getActionCommand().equals("b4")) {
+
+        } else if (e.getActionCommand().equals("b5")) {
             this.dispose();
-            new Main();
+            try {
+                Main.main(null);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         }
     }
 

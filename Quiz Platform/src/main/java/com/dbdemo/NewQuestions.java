@@ -139,7 +139,7 @@ public class NewQuestions extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("b1")) {
             this.dispose();
-            new AdminDashBoard().setVisible(true);
+            new AdminDashBoard();
         } else if (e.getActionCommand().equals("b2")) {
             String q = ta.getText();
             String o1 = t1.getText();

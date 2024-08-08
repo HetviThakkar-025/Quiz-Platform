@@ -90,8 +90,8 @@ public class LoginFrame extends JFrame implements ActionListener {
 
             String pass = new String(ps.getPassword());
             if (tf1.getText().equals("admin") && pass.equals("12345678")) {
-                new AdminDashBoard().setVisible(true);
-                ;
+                new AdminDashBoard();
+
             } else {
                 errorMsg.setText("Invalid username or password. Enter again");
                 tf1.setText("");
@@ -99,7 +99,11 @@ public class LoginFrame extends JFrame implements ActionListener {
             }
         } else {
             this.dispose();
-            new Main();
+            try {
+                Main.main(null);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         }
     }
 }
