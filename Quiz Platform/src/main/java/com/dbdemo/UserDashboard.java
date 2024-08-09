@@ -3,24 +3,28 @@ package com.dbdemo;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class UserDashboard extends JFrame {
-    JPanel mainPanel, headPanel, leftPanel;
-    JLabel headLabel;
-    JButton left1, left2, left3;
+public class UserDashboard extends JFrame implements ActionListener {
+    static JPanel mainPanel, headPanel, leftPanel;
+    static JLabel headLabel;
+    static JButton left1, left2, left3, play;
+    static JTextArea instructions;
     Color customColor;
 
     public static void main(String[] args) {
@@ -33,13 +37,13 @@ public class UserDashboard extends JFrame {
 
         String image = "D:\\Sem2 Project\\qems\\index bgg.png";
         mainPanel = bgPanel(image);
-        mainPanel.setLayout(new BorderLayout());
+        mainPanel.setLayout(null);
         setContentPane(mainPanel);
 
         headPanel = new JPanel();
         customColor = new Color(32, 51, 234);
         headPanel.setBackground(customColor);
-        headPanel.setPreferredSize(new Dimension(850, 70));
+        headPanel.setBounds(0, 0, 850, 70);
         headPanel.setLayout(new BorderLayout());
 
         headLabel = new JLabel("USER DASHBOARD", SwingConstants.CENTER);
@@ -50,10 +54,10 @@ public class UserDashboard extends JFrame {
         leftPanel = new JPanel();
         customColor = new Color(64, 84, 228);
         leftPanel.setBackground(customColor);
-        leftPanel.setPreferredSize(new Dimension(160, 500));
+        leftPanel.setBounds(0, 70, 160, 600);
         leftPanel.setLayout(null);
 
-        left1 = highlightedButtons("Categories");
+        left1 = highlightedButtons("Play Quiz");
         left2 = highlightedButtons("Leaderboard");
         left3 = highlightedButtons("Log Out");
 
@@ -67,7 +71,49 @@ public class UserDashboard extends JFrame {
         leftPanel.add(left1);
         leftPanel.add(left2);
         leftPanel.add(left3);
-        mainPanel.add(leftPanel, BorderLayout.WEST);
+        mainPanel.add(leftPanel);
+
+        instructions = new JTextArea("Welcome to the quiz!\n\n"
+                + "Please read the following instructions carefully:\n\n"
+                + "1. Each question is mandatory.\n"
+                + "2. You have a limited time to complete the quiz.\n"
+                + "3. Click 'Next' to proceed to the next question.\n"
+                + "4. You cannot go back to previous questions.\n"
+                + "5. Good luck!");
+
+        instructions.setWrapStyleWord(true);
+        instructions.setLineWrap(true);
+        instructions.setOpaque(false);
+        instructions.setEditable(false);
+        instructions.setFocusable(false);
+        instructions.setForeground(Color.white);
+        instructions.setFont(new Font("Serif", Font.PLAIN, 20));
+        instructions.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        instructions.setBounds(200, 100, 600, 400);
+
+        mainPanel.add(instructions);
+        instructions.setVisible(false);
+
+        play = new JButton("PLAY");
+        play.setFont(new Font("Arial", Font.BOLD, 20));
+        play.setBackground(Color.green);
+        play.setForeground(Color.black);
+        play.setBorderPainted(false);
+        play.setFocusPainted(false);
+        play.setBounds(600, 500, 120, 30);
+
+        play.setVisible(false);
+        mainPanel.add(play);
+
+        left1.setActionCommand("left1");
+        left1.addActionListener(this);
+        left2.setActionCommand("left2");
+        left2.addActionListener(this);
+        left3.setActionCommand("left3");
+        left3.addActionListener(this);
+        play.setActionCommand("play");
+        play.addActionListener(this);
+
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -128,5 +174,28 @@ public class UserDashboard extends JFrame {
                 }
             }
         };
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("left1")) {
+            instructions.setVisible(true);
+            play.setVisible(true);
+        }
+
+        else if (e.getActionCommand().equals("left2")) {
+
+        }
+
+        else if (e.getActionCommand().equals("play")) {
+            new PlayQuiz();
+        }
+
+        else if (e.getActionCommand().equals("left3")) {
+            this.dispose();
+            new UserLogin();
+        }
+        mainPanel.revalidate();
+        mainPanel.repaint();
     }
 }
