@@ -13,8 +13,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -25,11 +30,12 @@ public class UserDashboard extends JFrame implements ActionListener {
     static JLabel headLabel;
     static JButton left1, left2, left3, play;
     static JTextArea instructions;
+    static JScrollPane scrollPane;
     Color customColor;
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         new UserDashboard();
-    }
+    }*/
 
     public UserDashboard() {
         super("User Dashboard");
@@ -75,11 +81,12 @@ public class UserDashboard extends JFrame implements ActionListener {
 
         instructions = new JTextArea("Welcome to the quiz!\n\n"
                 + "Please read the following instructions carefully:\n\n"
-                + "1. Each question is mandatory.\n"
-                + "2. You have a limited time to complete the quiz.\n"
-                + "3. Click 'Next' to proceed to the next question.\n"
-                + "4. You cannot go back to previous questions.\n"
-                + "5. Good luck!");
+                + "1. There are 10 questions in the Quiz.\n"
+                + "2. Each question marks one point.\n"
+                + "3. You have a limited time to complete the quiz.\n"
+                + "4. Click 'Next' to proceed to the next question.\n"
+                + "5. You cannot go back to previous questions.\n"
+                + "6. Good luck!");
 
         instructions.setWrapStyleWord(true);
         instructions.setLineWrap(true);
@@ -104,6 +111,31 @@ public class UserDashboard extends JFrame implements ActionListener {
 
         play.setVisible(false);
         mainPanel.add(play);
+
+        String[] columnNames = { "Username", "Rank" };
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        JTable table = new JTable(model);
+
+        table.setFont(new Font("Arial", Font.PLAIN, 14));
+        table.setRowHeight(30);
+        table.setBackground(Color.LIGHT_GRAY);
+        table.setOpaque(true);
+        table.setForeground(Color.DARK_GRAY);
+        table.setGridColor(Color.black);
+        table.setSelectionBackground(Color.YELLOW);
+        table.setSelectionForeground(Color.RED);
+
+        // Set table header properties
+        JTableHeader header = table.getTableHeader();
+        header.setFont(new Font("Arial", Font.BOLD, 16));
+        header.setBackground(Color.darkGray);
+        header.setForeground(Color.WHITE);
+
+        mainPanel.add(table);
+        scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(250, 120, 500, 400);
+        mainPanel.add(scrollPane);
+        scrollPane.setVisible(false);
 
         left1.setActionCommand("left1");
         left1.addActionListener(this);
@@ -181,10 +213,13 @@ public class UserDashboard extends JFrame implements ActionListener {
         if (e.getActionCommand().equals("left1")) {
             instructions.setVisible(true);
             play.setVisible(true);
+            scrollPane.setVisible(false);
         }
 
         else if (e.getActionCommand().equals("left2")) {
-
+            instructions.setVisible(false);
+            play.setVisible(false);
+            scrollPane.setVisible(true);
         }
 
         else if (e.getActionCommand().equals("play")) {
