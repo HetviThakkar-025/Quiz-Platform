@@ -17,7 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 public class PlayQuiz extends JFrame implements ActionListener {
     JPanel mainPanel, startPanel;
@@ -45,15 +44,15 @@ public class PlayQuiz extends JFrame implements ActionListener {
         customColor = new Color(64, 84, 228);
         startPanel.setBackground(customColor);
         startPanel.setLayout(null);
-        startPanel.setBounds(300, 250, 180, 80);
+        startPanel.setBounds(310, 250, 180, 80);
 
         startLabel = new JLabel("Start Quiz?");
-        startLabel.setFont(new Font("Arial", Font.BOLD, 12));
+        startLabel.setFont(new Font("Arial", Font.BOLD, 14));
         startLabel.setForeground(Color.black);
         startLabel.setBounds(10, 5, 90, 20);
         start = new JButton("START");
         start.setBackground(Color.green);
-        start.setBounds(50, 35, 75, 25);
+        start.setBounds(52, 35, 75, 25);
 
         startPanel.add(startLabel);
         startPanel.add(start);
@@ -123,7 +122,7 @@ public class PlayQuiz extends JFrame implements ActionListener {
         timerLabel.setText(String.format("Time remaining: %02d:%02d", min, sec));
     }
 
-    private void endQuiz() {
+    public void endQuiz() {
         JOptionPane.showMessageDialog(this, "Time is up! The quiz has ended.", "Quiz Ended",
                 JOptionPane.INFORMATION_MESSAGE);
         // Add logic here to handle the end of the quiz
