@@ -37,7 +37,7 @@ public class QuestionService extends JFrame implements ActionListener {
         super("Questions Service");
         setSize(850, 650);
 
-        String image = "D:\\Sem2 Project\\qems\\index bgg.png";
+        String image = "D:\\Project#2\\Quiz Platform\\qems\\index bgg.png";
 
         JLabel bgLabel = new JLabel();
         try {
@@ -50,7 +50,7 @@ public class QuestionService extends JFrame implements ActionListener {
         add(bgLabel);
 
         b1 = new JButton();
-        ImageIcon path = new ImageIcon("D:\\Sem2 Project\\qems\\Back.png");
+        ImageIcon path = new ImageIcon("D:\\Project#2\\Quiz Platform\\qems\\Back.png");
         b1.setIcon(path);
         b1.setBounds(25, 550, 60, 30);
         b1.setBackground(Color.lightGray);
@@ -97,9 +97,9 @@ public class QuestionService extends JFrame implements ActionListener {
             // e.printStackTrace();
         }
 
-        String i1 = "D:\\Sem2 Project\\qems\\search.png";
-        String i2 = "D:\\Sem2 Project\\qems\\update.png";
-        String i3 = "D:\\Sem2 Project\\qems\\delete.png";
+        String i1 = "D:\\Project#2\\Quiz Platform\\qems\\search.png";
+        String i2 = "D:\\Project#2\\Quiz Platform\\qems\\update.png";
+        String i3 = "D:\\Project#2\\Quiz Platform\\qems\\delete.png";
 
         b2 = createImage(i1, "Search", 150, 510);
         b3 = createImage(i2, "Update", 350, 510);
@@ -171,7 +171,7 @@ class Search extends JFrame implements ActionListener {
         this.qMap = qMap;
         setSize(850, 650);
 
-        String image = "D:\\Sem2 Project\\qems\\index bgg.png";
+        String image = "D:\\Project#2\\Quiz Platform\\qems\\index bgg.png";
 
         JLabel bgLabel = new JLabel();
         try {
@@ -184,7 +184,7 @@ class Search extends JFrame implements ActionListener {
         add(bgLabel);
 
         b1 = new JButton();
-        ImageIcon path = new ImageIcon("D:\\Sem2 Project\\qems\\Back.png");
+        ImageIcon path = new ImageIcon("D:\\Project#2\\Quiz Platform\\qems\\Back.png");
         b1.setIcon(path);
         b1.setBounds(25, 550, 60, 30);
         b1.setBackground(Color.lightGray);
@@ -199,7 +199,7 @@ class Search extends JFrame implements ActionListener {
         t1.setFont(new Font("Arial", Font.BOLD, 16));
 
         b2 = new JButton();
-        ImageIcon i = new ImageIcon("D:\\Sem2 Project\\qems\\search.png");
+        ImageIcon i = new ImageIcon("D:\\Project#2\\Quiz Platform\\qems\\search.png");
         b2.setIcon(i);
         b2.setBounds(213, 45, 20, 23);
         b2.setBackground(Color.lightGray);
@@ -269,7 +269,7 @@ class delete extends JFrame implements ActionListener {
         this.qMap = qMap;
         setSize(850, 650);
 
-        String image = "D:\\Sem2 Project\\qems\\index bgg.png";
+        String image = "D:\\Project#2\\Quiz Platform\\qems\\index bgg.png";
 
         JLabel bgLabel = new JLabel();
         try {
@@ -282,7 +282,7 @@ class delete extends JFrame implements ActionListener {
         add(bgLabel);
 
         b1 = new JButton();
-        ImageIcon path = new ImageIcon("D:\\Sem2 Project\\qems\\Back.png");
+        ImageIcon path = new ImageIcon("D:\\Project#2\\Quiz Platform\\qems\\Back.png");
         b1.setIcon(path);
         b1.setBounds(25, 550, 60, 30);
         b1.setBackground(Color.lightGray);
@@ -297,7 +297,7 @@ class delete extends JFrame implements ActionListener {
         t1.setFont(new Font("Arial", Font.BOLD, 16));
 
         b2 = new JButton();
-        ImageIcon i = new ImageIcon("D:\\Sem2 Project\\qems\\search.png");
+        ImageIcon i = new ImageIcon("D:\\Project#2\\Quiz Platform\\qems\\search.png");
         b2.setIcon(i);
         b2.setBounds(213, 45, 20, 23);
         b2.setBackground(Color.lightGray);
@@ -398,7 +398,7 @@ class update extends JFrame implements ActionListener {
         super("Update Question");
         this.qMap = qMap;
         setSize(850, 650);
-        String image = "D:\\Sem2 Project\\qems\\index bgg.png";
+        String image = "D:\\Project#2\\Quiz Platform\\qems\\index bgg.png";
 
         JLabel bgLabel = new JLabel();
         try {
@@ -420,13 +420,13 @@ class update extends JFrame implements ActionListener {
         t6.setFont(new Font("Arial", Font.BOLD, 16));
 
         b3 = new JButton();
-        ImageIcon i = new ImageIcon("D:\\Sem2 Project\\qems\\search.png");
+        ImageIcon i = new ImageIcon("D:\\Project#2\\Quiz Platform\\qems\\search.png");
         b3.setIcon(i);
         b3.setBounds(213, 45, 20, 23);
         b3.setBackground(Color.lightGray);
 
         b1 = new JButton();
-        ImageIcon path = new ImageIcon("D:\\Sem2 Project\\qems\\Back.png");
+        ImageIcon path = new ImageIcon("D:\\Project#2\\Quiz Platform\\qems\\Back.png");
         b1.setIcon(path);
         b1.setBounds(25, 550, 60, 30);
         b1.setBackground(Color.lightGray);

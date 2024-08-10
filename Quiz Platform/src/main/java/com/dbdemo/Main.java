@@ -18,15 +18,15 @@ public class Main {
         JFrame f = new JFrame("Online Quiz Platform");
         f.setSize(850, 650);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        String image = "D:\\Sem2 Project\\qems\\quiz.png";
+        String image = "D:\\Project#2\\Quiz Platform\\qems\\quiz.png";
         JPanel p = bgPanel(image);
         f.setContentPane(p);
 
         JButton b1, b2, b3;
 
-        String i1 = "D:\\Sem2 Project\\qems\\index admin.png";
-        String i2 = "D:\\Sem2 Project\\qems\\index student.png";
-        String i3 = "D:\\Sem2 Project\\qems\\Close.png";
+        String i1 = "D:\\Project#2\\Quiz Platform\\qems\\index admin.png";
+        String i2 = "D:\\Project#2\\Quiz Platform\\qems\\index student.png";
+        String i3 = "D:\\Project#2\\Quiz Platform\\qems\\Close.png";
 
         b1 = createImage(i1, " Admin", 130, 20);
         b2 = createImage(i2, " User", 330, 20);

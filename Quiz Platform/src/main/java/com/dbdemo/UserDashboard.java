@@ -41,7 +41,7 @@ public class UserDashboard extends JFrame implements ActionListener {
         super("User Dashboard");
         setSize(850, 650);
 
-        String image = "D:\\Sem2 Project\\qems\\index bgg.png";
+        String image = "D:\\Project#2\\Quiz Platform\\qems\\index bgg.png";
         mainPanel = bgPanel(image);
         mainPanel.setLayout(null);
         setContentPane(mainPanel);

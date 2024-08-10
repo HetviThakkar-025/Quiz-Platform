@@ -31,7 +31,7 @@ public class UserLogin extends JFrame implements ActionListener {
     public UserLogin() {
         super("User Login");
         setSize(850, 650);
-        String image = "D:\\Sem2 Project\\qems\\loggg.png";
+        String image = "D:\\Project#2\\Quiz Platform\\qems\\loggg.png";
 
         JLabel bgLabel = new JLabel();
         try {
@@ -68,7 +68,7 @@ public class UserLogin extends JFrame implements ActionListener {
         b3.setBackground(Color.orange);
 
         b2 = new JButton();
-        ImageIcon path = new ImageIcon("D:\\Sem2 Project\\qems\\Back.png");
+        ImageIcon path = new ImageIcon("D:\\Project#2\\Quiz Platform\\qems\\Back.png");
         b2.setIcon(path);
         b2.setBounds(25, 550, 60, 30);
         b2.setBackground(Color.lightGray);

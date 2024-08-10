@@ -28,7 +28,7 @@ public class NewQuestions extends JFrame implements ActionListener {
     public NewQuestions() {
         super("Add New Questions");
         setSize(850, 650);
-        String image = "D:\\Sem2 Project\\qems\\index bgg.png";
+        String image = "D:\\Project#2\\Quiz Platform\\qems\\index bgg.png";
 
         JLabel bgLabel = new JLabel();
         try {
@@ -41,7 +41,7 @@ public class NewQuestions extends JFrame implements ActionListener {
         add(bgLabel);
 
         b1 = new JButton();
-        ImageIcon path = new ImageIcon("D:\\Sem2 Project\\qems\\Back.png");
+        ImageIcon path = new ImageIcon("D:\\Project#2\\Quiz Platform\\qems\\Back.png");
         b1.setIcon(path);
         b1.setBounds(25, 550, 60, 30);
         b1.setBackground(Color.lightGray);

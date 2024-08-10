@@ -18,11 +18,11 @@ public class AdminDashBoard extends JFrame implements ActionListener {
     public AdminDashBoard() {
         super("Admin DashBoard");
         setSize(850, 650);
-        String s1 = "D:\\Sem2 Project\\qems\\adDb.png";
-        String s2 = "D:\\Sem2 Project\\qems\\add new question.png";
-        String s3 = "D:\\Sem2 Project\\qems\\all questions.png";
-        String s4 = "D:\\Sem2 Project\\qems\\all user result.png";
-        String s5 = "D:\\Sem2 Project\\qems\\Logout.png";
+        String s1 = "D:\\Project#2\\Quiz Platform\\qems\\adDb.png";
+        String s2 = "D:\\Project#2\\Quiz Platform\\qems\\add new question.png";
+        String s3 = "D:\\Project#2\\Quiz Platform\\qems\\all questions.png";
+        String s4 = "D:\\Project#2\\Quiz Platform\\qems\\all user result.png";
+        String s5 = "D:\\Project#2\\Quiz Platform\\qems\\Logout.png";
 
         JLabel bgLabel = new JLabel();
         try {
@@ -35,7 +35,7 @@ public class AdminDashBoard extends JFrame implements ActionListener {
         add(bgLabel);
 
         b1 = new JButton();
-        ImageIcon path = new ImageIcon("D:\\Sem2 Project\\qems\\Back.png");
+        ImageIcon path = new ImageIcon("D:\\Project#2\\Quiz Platform\\qems\\Back.png");
         b1.setIcon(path);
         b1.setBounds(25, 550, 60, 30);
         b1.setBackground(Color.lightGray);
