@@ -94,7 +94,7 @@ public class PlayQuiz extends JFrame implements ActionListener {
         questionText.setEditable(false);
         questionText.setFocusable(false);
         questionText.setForeground(Color.black);
-        questionText.setFont(new Font("Serif", Font.PLAIN, 20));
+        questionText.setFont(new Font("Serif", Font.BOLD, 20));
         questionText.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         questionText.setBounds(20, 10, 550, 65);
 
@@ -111,10 +111,10 @@ public class PlayQuiz extends JFrame implements ActionListener {
         o3 = customRadioButtons();
         o4 = customRadioButtons();
 
-        o1.setBounds(17, -20, 120, 100);
-        o2.setBounds(17, -20, 120, 100);
-        o3.setBounds(17, -20, 120, 100);
-        o4.setBounds(17, -20, 120, 100);
+        o1.setBounds(15, -25, 130, 100);
+        o2.setBounds(15, -25, 130, 100);
+        o3.setBounds(15, -25, 130, 100);
+        o4.setBounds(15, -25, 130, 100);
 
         optionsGroup = new ButtonGroup();
         optionsGroup.add(o1);
@@ -170,7 +170,7 @@ public class PlayQuiz extends JFrame implements ActionListener {
     }
 
     private static JRadioButton customRadioButtons() {
-        JRadioButton radioButton = new JRadioButton();
+        JRadioButton radioButton = new JRadioButton("hi ehlloooooo");
         radioButton.setOpaque(false);
         radioButton.setBackground(new Color(19, 0, 181));
         radioButton.setForeground(Color.black);
@@ -178,7 +178,7 @@ public class PlayQuiz extends JFrame implements ActionListener {
         radioButton.setContentAreaFilled(false);
         radioButton.setBorderPainted(false);
         radioButton.setIcon(MetalIconFactory.getRadioButtonIcon());
-        radioButton.setFont(new Font("Serif", Font.BOLD, 17));
+        radioButton.setFont(new Font("Serif", Font.PLAIN, 18));
         radioButton.setFocusable(false);
 
         return radioButton;
@@ -206,21 +206,23 @@ public class PlayQuiz extends JFrame implements ActionListener {
 
     private void startTimer() {
         remaining = 5 * 60;
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
 
-            @Override
-            public void run() {
-                if (remaining > 0) {
+        Thread timer = new Thread(() -> {
+            try {
+                while (remaining > 0) {
+                    Thread.sleep(1000);
                     remaining--;
                     updateTimer();
-                } else {
-                    timer.cancel();
+                }
+                if (remaining == 0) {
+
                     endQuiz();
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-        }, 0, 1000);
+        });
+        timer.start();
     }
 
     private void updateTimer() {
@@ -268,3 +270,57 @@ public class PlayQuiz extends JFrame implements ActionListener {
         }
     }
 }
+
+
+/* import java.util.HashSet;
+import java.util.Set;
+
+public class PlayQuiz {
+
+    private Set<Integer> selectedQuestionIds = new HashSet<>();
+    private int questionCount = 0;
+    private final int MAX_QUESTIONS = 10;
+
+    private void setQuestions() {
+        if (questionCount >= MAX_QUESTIONS) {
+            System.out.println("All questions have been asked.");
+            return;
+        }
+
+        try {
+            Connection con = DatabaseConnection.getConnection();
+            String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
+            PreparedStatement pst = con.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                int questionId = rs.getInt("id"); // Assuming 'id' is the primary key column for the questions table
+
+                if (selectedQuestionIds.contains(questionId)) {
+                    // Skip this question as it has already been asked
+                    continue;
+                }
+
+                selectedQuestionIds.add(questionId);
+                questionCount++;
+
+                String ques = rs.getString("questext");
+                String op1 = rs.getString("option1");
+                String op2 = rs.getString("option2");
+                String op3 = rs.getString("option3");
+                String op4 = rs.getString("option4");
+
+                questionText.setText(ques);
+                o1.setText(op1);
+                o2.setText(op2);
+                o3.setText(op3);
+                o4.setText(op4);
+
+                break;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+}
+ */
