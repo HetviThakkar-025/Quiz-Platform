@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Timer;
@@ -19,6 +20,7 @@ import java.sql.Statement;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,16 +32,17 @@ import javax.swing.JTextArea;
 import javax.swing.plaf.metal.MetalIconFactory;
 
 public class PlayQuiz extends JFrame implements ActionListener {
-    JPanel mainPanel, startPanel, questionPanel, o1Panel, o2Panel, o3Panel, o4Panel;
-    JLabel timerLabel, startLabel, questionLabel;
+    JPanel mainPanel, startPanel, questionPanel, pointsPanel;
+    CustomPanel o1Panel, o2Panel, o3Panel, o4Panel;
+    JLabel timerLabel, startLabel, questionLabel, pointsLabel;
     JRadioButton o1, o2, o3, o4;
-    JButton next;
+    JButton next, start, back;
     JTextArea questionText;
     ButtonGroup optionsGroup;
-    JButton start;
     Color customColor;
     Timer timer;
     int remaining, queCounter = 1;
+    int totalPoints = 0;
 
     public static void main(String[] args) {
         new PlayQuiz();
@@ -134,6 +137,11 @@ public class PlayQuiz extends JFrame implements ActionListener {
         mainPanel.add(o3Panel);
         mainPanel.add(o4Panel);
 
+        o1.addActionListener(this);
+        o2.addActionListener(this);
+        o3.addActionListener(this);
+        o4.addActionListener(this);
+
         next = new JButton();
         ImageIcon i = new ImageIcon("D:\\Project#2\\Quiz Platform\\qems\\Next.png");
         Image img = i.getImage();
@@ -146,31 +154,36 @@ public class PlayQuiz extends JFrame implements ActionListener {
         next.setOpaque(false);
         mainPanel.add(next);
 
-        start.addActionListener(this);
+        pointsPanel = new JPanel();
+        customColor = new Color(0, 122, 255);
+        pointsPanel.setBackground(customColor);
+        pointsPanel.setLayout(null);
+        pointsPanel.setBounds(300, 250, 210, 100);
+
+        pointsLabel = new JLabel("POINTS SCORED: " + totalPoints);
+        pointsLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        pointsLabel.setForeground(Color.black);
+        pointsLabel.setBounds(10, 8, 250, 30);
+        back = new JButton("BACK");
+        back.setBackground(Color.green);
+        back.setFocusable(false);
+        back.setBounds(57, 58, 90, 30);
+
+        pointsPanel.add(pointsLabel);
+        pointsPanel.add(back);
+        mainPanel.add(pointsPanel);
+        pointsPanel.setVisible(false);
+
         start.setActionCommand("start");
+        start.addActionListener(this);
         next.setActionCommand("next");
         next.addActionListener(this);
+        back.setActionCommand("back");
+        back.addActionListener(this);
 
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
-    }
-
-    private static JPanel customOptionPanel(int x, int y, int w, int h) {
-        JPanel panel = new JPanel();
-        panel = new JPanel() {
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.setColor(new Color(238, 255, 75));
-                g.fillRoundRect(0, 0, getWidth(), getHeight(), 90, 90);
-            }
-        };
-        panel.setBounds(x, y, w, h);
-        panel.setOpaque(false);
-        panel.setLayout(null);
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        return panel;
     }
 
     private static JRadioButton customRadioButtons() {
@@ -224,7 +237,8 @@ public class PlayQuiz extends JFrame implements ActionListener {
                     }
                 }
                 if (remaining == 0) {
-                    endQuiz();
+                    JOptionPane.showMessageDialog(this, "Time is up! The quiz has ended.", "Quiz Ended",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -239,29 +253,27 @@ public class PlayQuiz extends JFrame implements ActionListener {
         timerLabel.setText(String.format("Time remaining: %02d:%02d", min, sec));
     }
 
-    final int MAX_QUESTIONS = 10;
-
     private void endQuiz() {
         isEndQuizCalled = false;
-        if (timerLabel.getText().equals("Time remaining: 00:00")) {
-            JOptionPane.showMessageDialog(this, "Time is up! The quiz has ended.", "Quiz Ended",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            timerLabel.setText("Time remaining: 00:00");
-            questionLabel.setText("QUESTION:  " + MAX_QUESTIONS);
-            JOptionPane.showMessageDialog(this, "The quiz has ended.", "Quiz Ended",
-                    JOptionPane.INFORMATION_MESSAGE);
-        }
+        timerLabel.setText("Time remaining: 00:00");
+        questionLabel.setText("QUESTION:  " + MAX_QUESTIONS);
+        JOptionPane.showMessageDialog(this, "The quiz has ended.", "Quiz Ended",
+                JOptionPane.INFORMATION_MESSAGE);
 
+        mainPanel.setComponentZOrder(pointsPanel, 0);
+        mainPanel.repaint();
+        pointsPanel.setVisible(true);
     }
 
     int queCount = 0;
+    final int MAX_QUESTIONS = 10;
     Set<Integer> checkID = new HashSet<>();
+    int currentId = 0;
 
-    private void setQuestions() {
+    private int setQuestions() {
+        int queId = 0;
         if (queCount >= MAX_QUESTIONS) {
-            endQuiz();
-            return;
+            return -1;
         }
         try {
             Connection con = DatabaseConnection.getConnection();
@@ -272,11 +284,12 @@ public class PlayQuiz extends JFrame implements ActionListener {
                 ResultSet rs = pst.executeQuery();
 
                 if (rs.next()) {
-                    int queId = rs.getInt("quesid");
+                    queId = rs.getInt("quesid");
 
                     if (!checkID.contains(queId)) {
                         checkID.add(queId);
                         queCount++;
+                        currentId = queId;
 
                         String ques = rs.getString("questext");
                         String op1 = rs.getString("option1");
@@ -290,6 +303,11 @@ public class PlayQuiz extends JFrame implements ActionListener {
                         o3.setText(op3);
                         o4.setText(op4);
 
+                        o1.setActionCommand(o1.getText());
+                        o2.setActionCommand(o2.getText());
+                        o3.setActionCommand(o3.getText());
+                        o4.setActionCommand(o4.getText());
+
                         break;
                     }
                 }
@@ -297,11 +315,40 @@ public class PlayQuiz extends JFrame implements ActionListener {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        return queId;
+    }
 
+    private void checkAnswers(String command, int qId) {
+        String selectedAnswer = command;
+        String correctAnswer;
+
+        if (selectedAnswer != null) {
+            try {
+                Connection con = DatabaseConnection.getConnection();
+                String query = "SELECT answer FROM questions WHERE quesid = ?";
+                PreparedStatement pst = con.prepareStatement(query);
+                pst.setInt(1, qId);
+                ResultSet rs = pst.executeQuery();
+
+                if (rs.next()) {
+                    correctAnswer = rs.getString("answer");
+
+                    if (selectedAnswer.equals(correctAnswer)) {
+                        totalPoints++;
+                        repaintOptionPanel(selectedAnswer, Color.green);
+                    } else {
+                        repaintOptionPanel(selectedAnswer, Color.red);
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (e.getActionCommand().equals("start")) {
             startPanel.setVisible(false);
             startTimer();
@@ -311,65 +358,75 @@ public class PlayQuiz extends JFrame implements ActionListener {
 
             if (queCounter > 10) {
                 endQuiz();
+                return;
             }
 
             questionLabel.setText("QUESTION:  " + queCounter);
-            setQuestions();
+            optionsGroup.clearSelection();
+            resetPanel();
+            int qId = setQuestions();
+
+            if (qId == -1)
+                return;
+
+        } else if (e.getActionCommand().equals("back")) {
+            this.dispose();
+            new UserDashboard();
+        } else {
+            String ans = e.getActionCommand();
+
+            if (ans != null) {
+                checkAnswers(ans, currentId);
+            }
         }
     }
+
+    private static CustomPanel customOptionPanel(int x, int y, int w, int h) {
+        CustomPanel panel = new CustomPanel();
+        panel.setBounds(x, y, w, h);
+        panel.setOpaque(false);
+        panel.setLayout(null);
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        return panel;
+    }
+
+    private void resetPanel() {
+        Color defaultColor = new Color(238, 255, 75); // Default color (yellow)
+
+        o1Panel.changeColor(defaultColor);
+        o2Panel.changeColor(defaultColor);
+        o3Panel.changeColor(defaultColor);
+        o4Panel.changeColor(defaultColor);
+    }
+
+    private void repaintOptionPanel(String selectedAnswer, Color color) {
+        if (o1.getText().equals(selectedAnswer)) {
+            o1Panel.changeColor(color);
+        } else if (o2.getText().equals(selectedAnswer)) {
+            o2Panel.changeColor(color);
+        } else if (o3.getText().equals(selectedAnswer)) {
+            o3Panel.changeColor(color);
+        } else if (o4.getText().equals(selectedAnswer)) {
+            o4Panel.changeColor(color);
+        }
+    }
+
 }
 
-/*
- * import java.util.HashSet;
- * import java.util.Set;
- * 
- * public class PlayQuiz {
- * 
- * private Set<Integer> selectedQuestionIds = new HashSet<>();
- * private int questionCount = 0;
- * private final int MAX_QUESTIONS = 10;
- * 
- * private void setQuestions() {
- * if (questionCount >= MAX_QUESTIONS) {
- * System.out.println("All questions have been asked.");
- * return;
- * }
- * 
- * try {
- * Connection con = DatabaseConnection.getConnection();
- * String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
- * PreparedStatement pst = con.prepareStatement(query);
- * ResultSet rs = pst.executeQuery();
- * 
- * while (rs.next()) {
- * int questionId = rs.getInt("id"); // Assuming 'id' is the primary key column
- * for the questions table
- * 
- * if (selectedQuestionIds.contains(questionId)) {
- * // Skip this question as it has already been asked
- * continue;
- * }
- * 
- * selectedQuestionIds.add(questionId);
- * questionCount++;
- * 
- * String ques = rs.getString("questext");
- * String op1 = rs.getString("option1");
- * String op2 = rs.getString("option2");
- * String op3 = rs.getString("option3");
- * String op4 = rs.getString("option4");
- * 
- * questionText.setText(ques);
- * o1.setText(op1);
- * o2.setText(op2);
- * o3.setText(op3);
- * o4.setText(op4);
- * 
- * break;
- * }
- * } catch (Exception ex) {
- * ex.printStackTrace();
- * }
- * }
- * }
- */
+class CustomPanel extends JPanel {
+    private Color customColor = new Color(238, 255, 75);
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(customColor);
+        g.fillRoundRect(0, 0, getWidth(), getHeight(), 90, 90);
+    }
+
+    public void changeColor(Color newColor) {
+        this.customColor = newColor;
+        repaint(); // Repaint the panel with the new color
+        revalidate();
+    }
+}
