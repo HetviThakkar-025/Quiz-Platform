@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.Color;
@@ -146,6 +148,8 @@ public class PlayQuiz extends JFrame implements ActionListener {
 
         start.addActionListener(this);
         start.setActionCommand("start");
+        next.setActionCommand("next");
+        next.addActionListener(this);
 
         setResizable(false);
         setLocationRelativeTo(null);
@@ -170,7 +174,7 @@ public class PlayQuiz extends JFrame implements ActionListener {
     }
 
     private static JRadioButton customRadioButtons() {
-        JRadioButton radioButton = new JRadioButton("hi ehlloooooo");
+        JRadioButton radioButton = new JRadioButton();
         radioButton.setOpaque(false);
         radioButton.setBackground(new Color(19, 0, 181));
         radioButton.setForeground(Color.black);
@@ -204,6 +208,8 @@ public class PlayQuiz extends JFrame implements ActionListener {
         };
     }
 
+    boolean isEndQuizCalled = true;
+
     private void startTimer() {
         remaining = 5 * 60;
 
@@ -212,10 +218,12 @@ public class PlayQuiz extends JFrame implements ActionListener {
                 while (remaining > 0) {
                     Thread.sleep(1000);
                     remaining--;
-                    updateTimer();
+
+                    if (isEndQuizCalled) {
+                        updateTimer();
+                    }
                 }
                 if (remaining == 0) {
-
                     endQuiz();
                 }
             } catch (Exception e) {
@@ -231,34 +239,65 @@ public class PlayQuiz extends JFrame implements ActionListener {
         timerLabel.setText(String.format("Time remaining: %02d:%02d", min, sec));
     }
 
+    final int MAX_QUESTIONS = 10;
+
     private void endQuiz() {
-        JOptionPane.showMessageDialog(this, "Time is up! The quiz has ended.", "Quiz Ended",
-                JOptionPane.INFORMATION_MESSAGE);
-        // Add logic here to handle the end of the quiz
+        isEndQuizCalled = false;
+        if (timerLabel.getText().equals("Time remaining: 00:00")) {
+            JOptionPane.showMessageDialog(this, "Time is up! The quiz has ended.", "Quiz Ended",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            timerLabel.setText("Time remaining: 00:00");
+            questionLabel.setText("QUESTION:  " + MAX_QUESTIONS);
+            JOptionPane.showMessageDialog(this, "The quiz has ended.", "Quiz Ended",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+
     }
 
+    int queCount = 0;
+    Set<Integer> checkID = new HashSet<>();
+
     private void setQuestions() {
+        if (queCount >= MAX_QUESTIONS) {
+            endQuiz();
+            return;
+        }
         try {
             Connection con = DatabaseConnection.getConnection();
-            String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
-            PreparedStatement pst = con.prepareStatement(query);
-            ResultSet rs = pst.executeQuery();
 
-            if (rs.next()) {
-                String ques = rs.getString("questext");
-                String op1 = rs.getString("option1");
-                String op2 = rs.getString("option2");
-                String op3 = rs.getString("option3");
-                String op4 = rs.getString("option4");
-                questionText.setText(ques);
-                o1.setText(op1);
-                o2.setText(op2);
-                o3.setText(op3);
-                o4.setText(op4);
+            while (true) {
+                String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
+                PreparedStatement pst = con.prepareStatement(query);
+                ResultSet rs = pst.executeQuery();
+
+                if (rs.next()) {
+                    int queId = rs.getInt("quesid");
+
+                    if (!checkID.contains(queId)) {
+                        checkID.add(queId);
+                        queCount++;
+
+                        String ques = rs.getString("questext");
+                        String op1 = rs.getString("option1");
+                        String op2 = rs.getString("option2");
+                        String op3 = rs.getString("option3");
+                        String op4 = rs.getString("option4");
+
+                        questionText.setText(ques);
+                        o1.setText(op1);
+                        o2.setText(op2);
+                        o3.setText(op3);
+                        o4.setText(op4);
+
+                        break;
+                    }
+                }
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
     }
 
     @Override
@@ -267,60 +306,70 @@ public class PlayQuiz extends JFrame implements ActionListener {
             startPanel.setVisible(false);
             startTimer();
             setQuestions();
-        }
-    }
-}
+        } else if (e.getActionCommand().equals("next")) {
+            queCounter++;
 
-
-/* import java.util.HashSet;
-import java.util.Set;
-
-public class PlayQuiz {
-
-    private Set<Integer> selectedQuestionIds = new HashSet<>();
-    private int questionCount = 0;
-    private final int MAX_QUESTIONS = 10;
-
-    private void setQuestions() {
-        if (questionCount >= MAX_QUESTIONS) {
-            System.out.println("All questions have been asked.");
-            return;
-        }
-
-        try {
-            Connection con = DatabaseConnection.getConnection();
-            String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
-            PreparedStatement pst = con.prepareStatement(query);
-            ResultSet rs = pst.executeQuery();
-
-            while (rs.next()) {
-                int questionId = rs.getInt("id"); // Assuming 'id' is the primary key column for the questions table
-
-                if (selectedQuestionIds.contains(questionId)) {
-                    // Skip this question as it has already been asked
-                    continue;
-                }
-
-                selectedQuestionIds.add(questionId);
-                questionCount++;
-
-                String ques = rs.getString("questext");
-                String op1 = rs.getString("option1");
-                String op2 = rs.getString("option2");
-                String op3 = rs.getString("option3");
-                String op4 = rs.getString("option4");
-
-                questionText.setText(ques);
-                o1.setText(op1);
-                o2.setText(op2);
-                o3.setText(op3);
-                o4.setText(op4);
-
-                break;
+            if (queCounter > 10) {
+                endQuiz();
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+
+            questionLabel.setText("QUESTION:  " + queCounter);
+            setQuestions();
         }
     }
 }
+
+/*
+ * import java.util.HashSet;
+ * import java.util.Set;
+ * 
+ * public class PlayQuiz {
+ * 
+ * private Set<Integer> selectedQuestionIds = new HashSet<>();
+ * private int questionCount = 0;
+ * private final int MAX_QUESTIONS = 10;
+ * 
+ * private void setQuestions() {
+ * if (questionCount >= MAX_QUESTIONS) {
+ * System.out.println("All questions have been asked.");
+ * return;
+ * }
+ * 
+ * try {
+ * Connection con = DatabaseConnection.getConnection();
+ * String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
+ * PreparedStatement pst = con.prepareStatement(query);
+ * ResultSet rs = pst.executeQuery();
+ * 
+ * while (rs.next()) {
+ * int questionId = rs.getInt("id"); // Assuming 'id' is the primary key column
+ * for the questions table
+ * 
+ * if (selectedQuestionIds.contains(questionId)) {
+ * // Skip this question as it has already been asked
+ * continue;
+ * }
+ * 
+ * selectedQuestionIds.add(questionId);
+ * questionCount++;
+ * 
+ * String ques = rs.getString("questext");
+ * String op1 = rs.getString("option1");
+ * String op2 = rs.getString("option2");
+ * String op3 = rs.getString("option3");
+ * String op4 = rs.getString("option4");
+ * 
+ * questionText.setText(ques);
+ * o1.setText(op1);
+ * o2.setText(op2);
+ * o3.setText(op3);
+ * o4.setText(op4);
+ * 
+ * break;
+ * }
+ * } catch (Exception ex) {
+ * ex.printStackTrace();
+ * }
+ * }
+ * }
  */
