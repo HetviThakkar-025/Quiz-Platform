@@ -101,6 +101,7 @@ public class UserLogin extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        PlayQuiz pq = new PlayQuiz();
         if (e.getActionCommand().equals("signin")) {
             String uname = tf1.getText();
             String pass = new String(ps.getPassword());
@@ -113,10 +114,12 @@ public class UserLogin extends JFrame implements ActionListener {
                     ResultSet rs = DatabaseConnection.getUsers();
 
                     while (rs.next()) {
+                        int uid = rs.getInt("userId");
                         String name = rs.getString("username");
                         String pas = rs.getString("password");
 
                         if (uname.equals(name) && pass.equals(pas)) {
+                            pq.insertInDatabase(uid, name);
                             new UserDashboard();
                         } else {
                             errorMsg.setText("Invalid username or password. Enter again");

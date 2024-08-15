@@ -41,12 +41,17 @@ public class PlayQuiz extends JFrame implements ActionListener {
     ButtonGroup optionsGroup;
     Color customColor;
     Timer timer;
-    int remaining, queCounter = 1;
-    int totalPoints = 0;
+    int remaining, totalPoints = 0, queCounter = 1;// userId;
+    //String username;
 
     public static void main(String[] args) {
         new PlayQuiz();
     }
+
+    /*public PlayQuiz(int id, String user) {
+        userId = id;
+        username = user;
+    }*/
 
     public PlayQuiz() {
         super("Play Quiz");
@@ -260,8 +265,10 @@ public class PlayQuiz extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(this, "The quiz has ended.", "Quiz Ended",
                 JOptionPane.INFORMATION_MESSAGE);
 
+        pointsLabel.setText("POINTS SCORED: " + totalPoints);
         mainPanel.setComponentZOrder(pointsPanel, 0);
         mainPanel.repaint();
+        //insertInDatabase();
         pointsPanel.setVisible(true);
     }
 
@@ -412,6 +419,20 @@ public class PlayQuiz extends JFrame implements ActionListener {
         }
     }
 
+    public void insertInDatabase(int userId, String username) {
+        try {
+            Connection con = DatabaseConnection.getConnection();
+            String query = "insert into leaderboard(userid,username,score) values(?,?,?)";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setInt(1, userId);
+            pst.setString(2, username);
+            pst.setInt(3, totalPoints);
+            pst.executeUpdate();
+        } catch (Exception e1) {
+            JOptionPane.showMessageDialog(this, "Error adding score to database", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }
 
 class CustomPanel extends JPanel {
