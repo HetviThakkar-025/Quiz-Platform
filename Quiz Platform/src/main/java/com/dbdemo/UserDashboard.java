@@ -7,11 +7,15 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -30,15 +34,29 @@ public class UserDashboard extends JFrame implements ActionListener {
     static JLabel headLabel;
     static JButton left1, left2, left3, play;
     static JTextArea instructions;
+    DefaultTableModel model;
     static JScrollPane scrollPane;
     Color customColor;
+    int userId;
+    String username;
 
-    /*public static void main(String[] args) {
-        new UserDashboard();
-    }*/
+    /*
+     * public static void main(String[] args) {
+     * new UserDashboard();
+     * }
+     */
+
+    public UserDashboard(int userId, String username) {
+        this.userId = userId;
+        this.username = username;
+        initUI();
+    }
 
     public UserDashboard() {
-        super("User Dashboard");
+    }
+
+    private void initUI() {
+        setName("User Dashboard");
         setSize(850, 650);
 
         String image = "D:\\Project#2\\Quiz Platform\\qems\\index bgg.png";
@@ -112,8 +130,8 @@ public class UserDashboard extends JFrame implements ActionListener {
         play.setVisible(false);
         mainPanel.add(play);
 
-        String[] columnNames = { "Username", "Rank" };
-        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        String[] columnNames = { "Username", "Score" };
+        model = new DefaultTableModel(columnNames, 0);
         JTable table = new JTable(model);
 
         table.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -219,11 +237,28 @@ public class UserDashboard extends JFrame implements ActionListener {
         else if (e.getActionCommand().equals("left2")) {
             instructions.setVisible(false);
             play.setVisible(false);
+
+            try {
+                ResultSet rs = DatabaseConnection.getScore();
+                while (rs.next()) {
+
+                    String username = rs.getString("username");
+                    int rank = rs.getInt("score");
+
+                    model.addRow(new Object[] { username, rank });
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error fetching score from database: " + ex.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                // e.printStackTrace();
+            }
+
             scrollPane.setVisible(true);
         }
 
         else if (e.getActionCommand().equals("play")) {
-            new PlayQuiz();
+            new PlayQuiz(userId, username);
         }
 
         else if (e.getActionCommand().equals("left3")) {

@@ -5,6 +5,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -14,6 +16,11 @@ import java.io.IOException;
 
 public class AdminDashBoard extends JFrame implements ActionListener {
     JButton b1, b2, b3, b4, b5;
+    DefaultTableModel model;
+
+    public static void main(String[] args) {
+        new AdminDashBoard();
+    }
 
     public AdminDashBoard() {
         super("Admin DashBoard");
@@ -76,7 +83,7 @@ public class AdminDashBoard extends JFrame implements ActionListener {
         } else if (e.getActionCommand().equals("b3")) {
             new QuestionService();
         } else if (e.getActionCommand().equals("b4")) {
-
+            new Leaderboard();
         } else if (e.getActionCommand().equals("b5")) {
             this.dispose();
             try {

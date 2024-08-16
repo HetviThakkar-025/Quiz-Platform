@@ -41,20 +41,24 @@ public class PlayQuiz extends JFrame implements ActionListener {
     ButtonGroup optionsGroup;
     Color customColor;
     Timer timer;
-    int remaining, totalPoints = 0, queCounter = 1;// userId;
-    //String username;
+    int remaining, totalPoints = 0, queCounter = 1, userId;
+    String username;
 
     public static void main(String[] args) {
         new PlayQuiz();
     }
 
-    /*public PlayQuiz(int id, String user) {
-        userId = id;
-        username = user;
-    }*/
+    public PlayQuiz(int userId, String username) {
+        this.userId = userId;
+        this.username = username;
+        initUI();
+    }
 
     public PlayQuiz() {
-        super("Play Quiz");
+    }
+
+    private void initUI() {
+        setName("Play Quiz");
         setSize(850, 650);
 
         String image = "D:\\Project#2\\Quiz Platform\\qems\\index bgg.png";
@@ -268,7 +272,7 @@ public class PlayQuiz extends JFrame implements ActionListener {
         pointsLabel.setText("POINTS SCORED: " + totalPoints);
         mainPanel.setComponentZOrder(pointsPanel, 0);
         mainPanel.repaint();
-        //insertInDatabase();
+        insertInDatabase();
         pointsPanel.setVisible(true);
     }
 
@@ -419,8 +423,9 @@ public class PlayQuiz extends JFrame implements ActionListener {
         }
     }
 
-    public void insertInDatabase(int userId, String username) {
+    public void insertInDatabase() {
         try {
+            System.out.println(userId + username);
             Connection con = DatabaseConnection.getConnection();
             String query = "insert into leaderboard(userid,username,score) values(?,?,?)";
             PreparedStatement pst = con.prepareStatement(query);

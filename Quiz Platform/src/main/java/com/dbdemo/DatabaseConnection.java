@@ -7,17 +7,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    /*public static void main(String[] args) throws SQLException {
-        new DatabaseConnection();
-
-        Connection c = getConnection();
-
-        if (c != null) {
-            System.out.println("success");
-        } else {
-            System.out.println("Failed");
-        }
-    }*/
+    /*
+     * public static void main(String[] args) throws SQLException {
+     * new DatabaseConnection();
+     * 
+     * Connection c = getConnection();
+     * 
+     * if (c != null) {
+     * System.out.println("success");
+     * } else {
+     * System.out.println("Failed");
+     * }
+     * }
+     */
 
     // URL = jdbc:postgresql://<host>:<port>/<database>
     private static String dbURL = "jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com:6543/postgres";
@@ -47,6 +49,23 @@ public class DatabaseConnection {
         try {
             Connection con = getConnection();
             String query = "Select * from questions";
+            Statement st = con.createStatement();
+            rs = st.executeQuery(query);
+        } catch (SQLException e) {
+            System.err.println("SQL exception occurred while fetching questions.");
+            // e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred while fetching questions.");
+            // e.printStackTrace();
+        }
+        return rs;
+    }
+
+    public static ResultSet getScore() throws SQLException {
+        ResultSet rs = null;
+        try {
+            Connection con = getConnection();
+            String query = "Select * from leaderboard";
             Statement st = con.createStatement();
             rs = st.executeQuery(query);
         } catch (SQLException e) {
