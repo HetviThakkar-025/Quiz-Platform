@@ -92,7 +92,9 @@ public class Main {
         }
 
         b.setBounds(x, y, 150, 65);
-
+        b.setFocusable(false);
+        b.setFocusPainted(false);
+        b.setBorderPainted(false);
         b.setFont(new Font("Arial", Font.BOLD, 16));
 
         return b;

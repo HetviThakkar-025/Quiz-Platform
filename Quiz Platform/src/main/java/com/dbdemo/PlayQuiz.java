@@ -425,7 +425,6 @@ public class PlayQuiz extends JFrame implements ActionListener {
 
     public void insertInDatabase() {
         try {
-            System.out.println(userId + username);
             Connection con = DatabaseConnection.getConnection();
             String query = "insert into leaderboard(userid,username,score) values(?,?,?)";
             PreparedStatement pst = con.prepareStatement(query);

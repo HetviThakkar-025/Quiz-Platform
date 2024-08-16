@@ -46,6 +46,9 @@ public class AdminDashBoard extends JFrame implements ActionListener {
         b1.setIcon(path);
         b1.setBounds(25, 550, 60, 30);
         b1.setBackground(Color.lightGray);
+        b1.setFocusable(false);
+        b1.setFocusPainted(false);
+        b1.setBorderPainted(false);
 
         b2 = createImage(s2, "Add New Question", 65, 150);
         b3 = createImage(s3, "      All Questions", 65, 240);
@@ -105,6 +108,9 @@ public class AdminDashBoard extends JFrame implements ActionListener {
 
         b.setBounds(x, y, 300, 60);
         b.setBackground(Color.cyan);
+        b.setFocusable(false);
+        b.setFocusPainted(false);
+        b.setBorderPainted(false);
         b.setFont(new Font("Arial", Font.BOLD, 16));
 
         return b;

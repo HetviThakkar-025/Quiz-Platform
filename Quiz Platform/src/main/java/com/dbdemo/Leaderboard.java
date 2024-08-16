@@ -2,13 +2,15 @@ package com.dbdemo;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,9 +19,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-public class Leaderboard extends JFrame {
+public class Leaderboard extends JFrame implements ActionListener {
     DefaultTableModel model;
     JScrollPane scrollPane;
+    JButton back;
 
     public static void main(String[] args) {
         new Leaderboard();
@@ -77,11 +80,29 @@ public class Leaderboard extends JFrame {
 
         bgLabel.add(table);
         scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(100, 50, 650, 500);
+        scrollPane.setBounds(100, 50, 650, 480);
         bgLabel.add(scrollPane);
 
+        back = new JButton();
+        ImageIcon path = new ImageIcon("D:\\Project#2\\Quiz Platform\\qems\\Back.png");
+        back.setIcon(path);
+        back.setBounds(25, 550, 60, 30);
+        back.setBackground(Color.lightGray);
+        back.setFocusable(false);
+        back.setFocusPainted(false);
+        back.setBorderPainted(false);
+        bgLabel.add(back);
+
+        back.addActionListener(this);
+        back.setActionCommand("back");
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        this.dispose();
+        new AdminDashBoard();
     }
 }

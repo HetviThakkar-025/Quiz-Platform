@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -61,17 +60,26 @@ public class UserLogin extends JFrame implements ActionListener {
         b.setBounds(100, 330, 90, 35);
         b.setFont(new Font("Arial", Font.BOLD, 14));
         b.setBackground(Color.orange);
+        b.setFocusable(false);
+        b.setFocusPainted(false);
+        b.setBorderPainted(false);
 
         b3 = new JButton("Sign up");
         b3.setBounds(210, 330, 90, 35);
         b3.setFont(new Font("Arial", Font.BOLD, 14));
         b3.setBackground(Color.orange);
+        b3.setFocusable(false);
+        b3.setFocusPainted(false);
+        b3.setBorderPainted(false);
 
         b2 = new JButton();
         ImageIcon path = new ImageIcon("D:\\Project#2\\Quiz Platform\\qems\\Back.png");
         b2.setIcon(path);
         b2.setBounds(25, 550, 60, 30);
         b2.setBackground(Color.lightGray);
+        b2.setFocusable(false);
+        b2.setFocusPainted(false);
+        b2.setBorderPainted(false);
 
         errorMsg = new JLabel();
         errorMsg.setForeground(Color.RED);
@@ -149,7 +157,7 @@ public class UserLogin extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "User added successfully");
                     tf1.setText("");
                     ps.setText("");
-                    new UserDashboard();
+                    //new UserDashboard(uid, name);
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(this, "Error adding user to database", "Error",
                             JOptionPane.ERROR_MESSAGE);

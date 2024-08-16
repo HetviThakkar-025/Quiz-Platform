@@ -54,6 +54,9 @@ public class QuestionService extends JFrame implements ActionListener {
         b1.setIcon(path);
         b1.setBounds(25, 550, 60, 30);
         b1.setBackground(Color.lightGray);
+        b1.setFocusable(false);
+        b1.setFocusPainted(false);
+        b1.setBorderPainted(false);
 
         bgLabel.add(b1);
 
@@ -153,6 +156,9 @@ public class QuestionService extends JFrame implements ActionListener {
 
         b.setBounds(x, y, 135, 30);
         b.setBackground(Color.yellow);
+        b.setFocusable(false);
+        b.setFocusPainted(false);
+        b.setBorderPainted(false);
         b.setFont(new Font("Arial", Font.BOLD, 16));
 
         return b;
@@ -188,6 +194,9 @@ class Search extends JFrame implements ActionListener {
         b1.setIcon(path);
         b1.setBounds(25, 550, 60, 30);
         b1.setBackground(Color.lightGray);
+        b1.setFocusable(false);
+        b1.setFocusPainted(false);
+        b1.setBorderPainted(false);
 
         l1 = new JLabel("Enter id: ");
         l1.setForeground(Color.WHITE);
@@ -203,6 +212,9 @@ class Search extends JFrame implements ActionListener {
         b2.setIcon(i);
         b2.setBounds(213, 45, 20, 23);
         b2.setBackground(Color.lightGray);
+        b2.setFocusable(false);
+        b2.setFocusPainted(false);
+        b2.setBorderPainted(false);
 
         l2 = new JLabel("Results: ");
         l2.setForeground(Color.WHITE);
@@ -286,6 +298,9 @@ class delete extends JFrame implements ActionListener {
         b1.setIcon(path);
         b1.setBounds(25, 550, 60, 30);
         b1.setBackground(Color.lightGray);
+        b1.setFocusable(false);
+        b1.setFocusPainted(false);
+        b1.setBorderPainted(false);
 
         l1 = new JLabel("Enter id: ");
         l1.setForeground(Color.WHITE);
@@ -301,6 +316,9 @@ class delete extends JFrame implements ActionListener {
         b2.setIcon(i);
         b2.setBounds(213, 45, 20, 23);
         b2.setBackground(Color.lightGray);
+        b2.setFocusable(false);
+        b2.setFocusPainted(false);
+        b2.setBorderPainted(false);
 
         l2 = new JLabel("Results: ");
         l2.setForeground(Color.WHITE);
@@ -316,6 +334,9 @@ class delete extends JFrame implements ActionListener {
         b3.setBounds(310, 515, 90, 30);
         b3.setFont(new Font("Arial", Font.BOLD, 16));
         b3.setBackground(Color.green);
+        b3.setFocusable(false);
+        b3.setFocusPainted(false);
+        b3.setBorderPainted(false);
 
         bgLabel.add(b1);
         bgLabel.add(l1);
@@ -424,12 +445,18 @@ class update extends JFrame implements ActionListener {
         b3.setIcon(i);
         b3.setBounds(213, 45, 20, 23);
         b3.setBackground(Color.lightGray);
+        b3.setFocusable(false);
+        b3.setFocusPainted(false);
+        b3.setBorderPainted(false);
 
         b1 = new JButton();
         ImageIcon path = new ImageIcon("D:\\Project#2\\Quiz Platform\\qems\\Back.png");
         b1.setIcon(path);
         b1.setBounds(25, 550, 60, 30);
         b1.setBackground(Color.lightGray);
+        b1.setFocusable(false);
+        b1.setFocusPainted(false);
+        b1.setBorderPainted(false);
 
         l1 = new JLabel("QUESTION");
         l1.setForeground(Color.WHITE);
@@ -483,6 +510,9 @@ class update extends JFrame implements ActionListener {
         b2.setBounds(310, 515, 90, 30);
         b2.setFont(new Font("Arial", Font.BOLD, 16));
         b2.setBackground(Color.green);
+        b2.setFocusable(false);
+        b2.setFocusPainted(false);
+        b2.setBorderPainted(false);
 
         msg = new JLabel();
         msg.setForeground(Color.RED);

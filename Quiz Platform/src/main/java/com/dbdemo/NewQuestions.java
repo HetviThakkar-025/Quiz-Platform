@@ -45,6 +45,9 @@ public class NewQuestions extends JFrame implements ActionListener {
         b1.setIcon(path);
         b1.setBounds(25, 550, 60, 30);
         b1.setBackground(Color.lightGray);
+        b1.setFocusable(false);
+        b1.setFocusPainted(false);
+        b1.setBorderPainted(false);
 
         l1 = new JLabel("QUESTION");
         l1.setForeground(Color.WHITE);
@@ -97,10 +100,16 @@ public class NewQuestions extends JFrame implements ActionListener {
         b2 = new JButton("ADD");
         b2.setBounds(240, 470, 90, 30);
         b2.setBackground(Color.green);
+        b2.setFocusable(false);
+        b2.setFocusPainted(false);
+        b2.setBorderPainted(false);
 
         b3 = new JButton("RESET");
         b3.setBounds(390, 470, 90, 30);
         b3.setBackground(Color.green);
+        b3.setFocusable(false);
+        b3.setFocusPainted(false);
+        b3.setBorderPainted(false);
 
         msg = new JLabel();
         msg.setForeground(Color.RED);

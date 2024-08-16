@@ -53,13 +53,18 @@ public class LoginFrame extends JFrame implements ActionListener {
         b = new JButton("Login");
         b.setBounds(150, 330, 70, 35);
         b.setBackground(Color.orange);
-        // b.setBorder(new LineBorder(Color.BLUE,4));
+        b.setFocusable(false);
+        b.setFocusPainted(false);
+        b.setBorderPainted(false);
 
         b2 = new JButton();
         ImageIcon path = new ImageIcon("D:\\Project#2\\Quiz Platform\\qems\\Back.png");
         b2.setIcon(path);
         b2.setBounds(25, 550, 60, 30);
         b2.setBackground(Color.lightGray);
+        b2.setFocusable(false);
+        b2.setFocusPainted(false);
+        b2.setBorderPainted(false);
 
         errorMsg = new JLabel();
         errorMsg.setForeground(Color.RED);

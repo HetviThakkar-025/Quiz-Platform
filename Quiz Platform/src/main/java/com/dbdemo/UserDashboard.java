@@ -125,6 +125,7 @@ public class UserDashboard extends JFrame implements ActionListener {
         play.setForeground(Color.black);
         play.setBorderPainted(false);
         play.setFocusPainted(false);
+        play.setFocusable(false);
         play.setBounds(600, 500, 120, 30);
 
         play.setVisible(false);
@@ -148,6 +149,21 @@ public class UserDashboard extends JFrame implements ActionListener {
         header.setFont(new Font("Arial", Font.BOLD, 16));
         header.setBackground(Color.darkGray);
         header.setForeground(Color.WHITE);
+
+        try {
+            ResultSet rs = DatabaseConnection.getScore();
+            while (rs.next()) {
+
+                String username = rs.getString("username");
+                int rank = rs.getInt("score");
+
+                model.addRow(new Object[] { username, rank });
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error fetching score from database: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
 
         mainPanel.add(table);
         scrollPane = new JScrollPane(table);
@@ -180,6 +196,7 @@ public class UserDashboard extends JFrame implements ActionListener {
         left.setBackground(normalColor); // Highlight color
         left.setBorderPainted(false);
         left.setFocusPainted(false);
+        left.setFocusable(false);
 
         left.addMouseListener(new MouseAdapter() {
             @Override
@@ -237,23 +254,6 @@ public class UserDashboard extends JFrame implements ActionListener {
         else if (e.getActionCommand().equals("left2")) {
             instructions.setVisible(false);
             play.setVisible(false);
-
-            try {
-                ResultSet rs = DatabaseConnection.getScore();
-                while (rs.next()) {
-
-                    String username = rs.getString("username");
-                    int rank = rs.getInt("score");
-
-                    model.addRow(new Object[] { username, rank });
-                }
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error fetching score from database: " + ex.getMessage(),
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                // e.printStackTrace();
-            }
-
             scrollPane.setVisible(true);
         }
 
