@@ -7,20 +7,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Timer;
-import java.util.TimerTask;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Statement;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -275,7 +271,7 @@ public class PlayQuiz extends JFrame implements ActionListener {
 
     int queCount = 0;
     final int MAX_QUESTIONS = 10;
-    Set<Integer> checkID = new HashSet<>();
+    MyHashSet<Integer> checkID = new MyHashSet<>();
     int currentId = 0;
 
     private int setQuestions() {

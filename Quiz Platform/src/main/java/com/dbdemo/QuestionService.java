@@ -31,7 +31,7 @@ public class QuestionService extends JFrame implements ActionListener {
     }*/
 
     JButton b1, b2, b3, b4;
-    HashMap<Integer, question> qMap;
+    MyHashMap<Integer, question> qMap;
 
     public QuestionService() {
         super("Questions Service");
@@ -78,7 +78,7 @@ public class QuestionService extends JFrame implements ActionListener {
         header.setBackground(Color.GRAY);
         header.setForeground(Color.WHITE);
 
-        qMap = new HashMap<>();
+        qMap = new MyHashMap<>();
 
         try {
             ResultSet rs = DatabaseConnection.getQuestions();
@@ -173,9 +173,9 @@ class Search extends JFrame implements ActionListener {
     JLabel l1, l2;
     JTextField t1;
     JTextArea ta;
-    HashMap<Integer, question> qMap;
+    MyHashMap<Integer, question> qMap;
 
-    public Search(HashMap<Integer, question> qMap) {
+    public Search(MyHashMap<Integer, question> qMap) {
         super("Search Question");
         this.qMap = qMap;
         setSize(850, 650);
@@ -277,9 +277,9 @@ class delete extends JFrame implements ActionListener {
     JLabel l1, l2;
     JTextField t1;
     JTextArea ta;
-    HashMap<Integer, question> qMap;
+    MyHashMap<Integer, question> qMap;
 
-    public delete(HashMap<Integer, question> qMap) {
+    public delete(MyHashMap<Integer, question> qMap) {
         super("Delete Question");
         this.qMap = qMap;
         setSize(850, 650);
@@ -416,9 +416,9 @@ class update extends JFrame implements ActionListener {
     JLabel l1, l2, l3, l4, l5, l6, l7, msg;
     JTextField t1, t2, t3, t4, t5, t6;
     JTextArea ta;
-    HashMap<Integer, question> qMap;
+    MyHashMap<Integer, question> qMap;
 
-    public update(HashMap<Integer, question> qMap) {
+    public update(MyHashMap<Integer, question> qMap) {
         super("Update Question");
         this.qMap = qMap;
         setSize(850, 650);
