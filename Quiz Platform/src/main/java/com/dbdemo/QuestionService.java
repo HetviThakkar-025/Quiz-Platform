@@ -26,9 +26,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public class QuestionService extends JFrame implements ActionListener {
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         new QuestionService();
-    }
+    }*/
 
     JButton b1, b2, b3, b4;
     HashMap<Integer, question> qMap;
@@ -138,10 +138,13 @@ public class QuestionService extends JFrame implements ActionListener {
             new AdminDashBoard().setVisible(true);
         } else if (e.getActionCommand().equals("b2")) {
             new Search(qMap);
+            this.dispose();
         } else if (e.getActionCommand().equals("b3")) {
             new update(qMap);
+            this.dispose();
         } else if (e.getActionCommand().equals("b4")) {
             new delete(qMap);
+            this.dispose();
         }
     }
 
@@ -277,7 +280,7 @@ class delete extends JFrame implements ActionListener {
     HashMap<Integer, question> qMap;
 
     public delete(HashMap<Integer, question> qMap) {
-        super("Search Question");
+        super("Delete Question");
         this.qMap = qMap;
         setSize(850, 650);
 

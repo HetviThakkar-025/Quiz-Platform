@@ -44,17 +44,14 @@ public class PlayQuiz extends JFrame implements ActionListener {
     int remaining, totalPoints = 0, queCounter = 1, userId;
     String username;
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         new PlayQuiz();
-    }
+    }*/
 
     public PlayQuiz(int userId, String username) {
         this.userId = userId;
         this.username = username;
         initUI();
-    }
-
-    public PlayQuiz() {
     }
 
     private void initUI() {
@@ -232,7 +229,7 @@ public class PlayQuiz extends JFrame implements ActionListener {
 
     boolean isEndQuizCalled = true;
 
-    private void startTimer() {
+    private void startTimer() { //USING MULTI-THREADING
         remaining = 5 * 60;
 
         Thread timer = new Thread(() -> {

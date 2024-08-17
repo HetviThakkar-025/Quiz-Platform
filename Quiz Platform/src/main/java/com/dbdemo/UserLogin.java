@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -52,12 +53,33 @@ public class UserLogin extends JFrame implements ActionListener {
         l2.setForeground(Color.WHITE);
         l2.setBounds(100, 210, 100, 50);
         ps = new JPasswordField(20);
-        ps.setFont(new Font("Arial", Font.BOLD, 14));
-        ps.setEchoChar('*');
+        ps.setFont(new Font("Arial", Font.BOLD, 16));
         ps.setBounds(100, 260, 200, 25);
 
+        JCheckBox showPass = new JCheckBox("Show password");
+		showPass.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(showPass.isSelected())
+				{
+					ps.setEchoChar((char)0);
+				}
+				else
+				{
+					ps.setEchoChar('•');
+				}
+					
+			}
+		});
+		showPass.setFont(new Font("Agency FB", Font.PLAIN, 22));
+		showPass.setBounds(110, 310, 153, 21);
+        showPass.setForeground(Color.white);
+		showPass.setOpaque(false);
+        showPass.setBorderPainted(false);
+        showPass.setFocusPainted(false);
+		bgLabel.add(showPass);
+
         b = new JButton("Sign in");
-        b.setBounds(100, 330, 90, 35);
+        b.setBounds(100, 360, 90, 35);
         b.setFont(new Font("Arial", Font.BOLD, 14));
         b.setBackground(Color.orange);
         b.setFocusable(false);
@@ -65,7 +87,7 @@ public class UserLogin extends JFrame implements ActionListener {
         b.setBorderPainted(false);
 
         b3 = new JButton("Sign up");
-        b3.setBounds(210, 330, 90, 35);
+        b3.setBounds(210, 360, 90, 35);
         b3.setFont(new Font("Arial", Font.BOLD, 14));
         b3.setBackground(Color.orange);
         b3.setFocusable(false);
@@ -127,6 +149,7 @@ public class UserLogin extends JFrame implements ActionListener {
 
                         if (uname.equals(name) && pass.equals(pas)) {
                             new UserDashboard(uid, name);
+                            this.dispose();
                             break;
                         } else {
                             errorMsg.setText("Invalid username or password. Enter again");
@@ -157,6 +180,8 @@ public class UserLogin extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "User added successfully");
                     tf1.setText("");
                     ps.setText("");
+                    new UserDashboard();
+                    this.dispose();
                     //new UserDashboard(uid, name);
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(this, "Error adding user to database", "Error",

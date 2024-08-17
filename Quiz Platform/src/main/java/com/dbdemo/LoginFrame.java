@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
@@ -18,6 +19,10 @@ public class LoginFrame extends JFrame implements ActionListener {
     JPasswordField ps;
     JLabel l1, l2, errorMsg;
     JButton b, b2;
+
+    public static void main(String[] args) {
+        new LoginFrame();
+    }
 
     private static final String username = "admin";
     private static final String password = "12345678";
@@ -47,11 +52,33 @@ public class LoginFrame extends JFrame implements ActionListener {
         l2.setForeground(Color.WHITE);
         l2.setBounds(100, 210, 100, 50);
         ps = new JPasswordField(20);
-        ps.setEchoChar('*');
+        ps.setFont(new Font("Arial", Font.BOLD, 16));
         ps.setBounds(100, 260, 200, 25);
 
+        JCheckBox showPass = new JCheckBox("Show password");
+		showPass.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(showPass.isSelected())
+				{
+					ps.setEchoChar((char)0);
+				}
+				else
+				{
+					ps.setEchoChar('•');
+				}
+					
+			}
+		});
+		showPass.setFont(new Font("Agency FB", Font.PLAIN, 22));
+		showPass.setBounds(110, 310, 153, 21);
+        showPass.setForeground(Color.white);
+		showPass.setOpaque(false);
+        showPass.setBorderPainted(false);
+        showPass.setFocusPainted(false);
+		bgLabel.add(showPass);
+
         b = new JButton("Login");
-        b.setBounds(150, 330, 70, 35);
+        b.setBounds(150, 350, 70, 35);
         b.setBackground(Color.orange);
         b.setFocusable(false);
         b.setFocusPainted(false);
@@ -96,6 +123,7 @@ public class LoginFrame extends JFrame implements ActionListener {
             String pass = new String(ps.getPassword());
             if (tf1.getText().equals("admin") && pass.equals("12345678")) {
                 new AdminDashBoard();
+                this.dispose();
 
             } else {
                 errorMsg.setText("Invalid username or password. Enter again");

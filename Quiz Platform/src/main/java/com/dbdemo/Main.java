@@ -39,6 +39,7 @@ public class Main {
         b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new LoginFrame();
+                f.dispose();
             }
 
         });
@@ -46,6 +47,7 @@ public class Main {
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new UserLogin();
+                f.dispose();
             }
 
         });

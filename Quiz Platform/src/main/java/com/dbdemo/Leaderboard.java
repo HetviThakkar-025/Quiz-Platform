@@ -24,9 +24,9 @@ public class Leaderboard extends JFrame implements ActionListener {
     JScrollPane scrollPane;
     JButton back;
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         new Leaderboard();
-    }
+    }*/
 
     public Leaderboard() {
         super("LeaderBoard");

@@ -18,9 +18,9 @@ public class AdminDashBoard extends JFrame implements ActionListener {
     JButton b1, b2, b3, b4, b5;
     DefaultTableModel model;
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         new AdminDashBoard();
-    }
+    }*/
 
     public AdminDashBoard() {
         super("Admin DashBoard");
@@ -83,10 +83,13 @@ public class AdminDashBoard extends JFrame implements ActionListener {
             new LoginFrame();
         } else if (e.getActionCommand().equals("b2")) {
             new NewQuestions();
+            this.dispose();
         } else if (e.getActionCommand().equals("b3")) {
             new QuestionService();
+            this.dispose();
         } else if (e.getActionCommand().equals("b4")) {
             new Leaderboard();
+            this.dispose();
         } else if (e.getActionCommand().equals("b5")) {
             this.dispose();
             try {

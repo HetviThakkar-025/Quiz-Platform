@@ -53,6 +53,7 @@ public class UserDashboard extends JFrame implements ActionListener {
     }
 
     public UserDashboard() {
+        initUI();
     }
 
     private void initUI() {
@@ -259,6 +260,7 @@ public class UserDashboard extends JFrame implements ActionListener {
 
         else if (e.getActionCommand().equals("play")) {
             new PlayQuiz(userId, username);
+            this.dispose();
         }
 
         else if (e.getActionCommand().equals("left3")) {
