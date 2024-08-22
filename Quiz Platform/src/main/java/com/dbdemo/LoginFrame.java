@@ -66,7 +66,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 
             }
         });
-        showPass.setFont(new Font("Agency FB", Font.PLAIN, 22));
+        showPass.setFont(new Font("Arial", Font.BOLD, 15));
         showPass.setBounds(110, 310, 153, 21);
         showPass.setForeground(Color.white);
         showPass.setOpaque(false);
@@ -112,6 +112,7 @@ public class LoginFrame extends JFrame implements ActionListener {
     private JLabel createLabel(String text, int y) {
         JLabel label = new JLabel(text);
         label.setForeground(Color.WHITE);
+        label.setFont(new Font("Arial", Font.BOLD, 16));
         label.setBounds(100, y, 100, 50);
 
         return label;

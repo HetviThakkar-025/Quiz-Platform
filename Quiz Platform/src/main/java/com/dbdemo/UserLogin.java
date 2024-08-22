@@ -43,15 +43,15 @@ public class UserLogin extends JFrame implements ActionListener {
         // Set the layout to null for absolute positioning
         bgLabel.setLayout(null);
         add(bgLabel);
-        l1 = new JLabel("USERNAME");
-        l1.setForeground(Color.WHITE);
-        l1.setBounds(100, 110, 100, 50);
+
+        l1=createLabel("USERNAME", 110);
+        
         tf1 = new JTextField(20);
         tf1.setBounds(100, 160, 200, 25);
         tf1.setFont(new Font("Arial", Font.BOLD, 16));
-        l2 = new JLabel("PASSWORD");
-        l2.setForeground(Color.WHITE);
-        l2.setBounds(100, 210, 100, 50);
+
+        l2=createLabel("PASSWORD", 210);
+        
         ps = new JPasswordField(20);
         ps.setFont(new Font("Arial", Font.BOLD, 16));
         ps.setBounds(100, 260, 200, 25);
@@ -70,7 +70,7 @@ public class UserLogin extends JFrame implements ActionListener {
 					
 			}
 		});
-		showPass.setFont(new Font("Agency FB", Font.PLAIN, 22));
+		showPass.setFont(new Font("Arial", Font.BOLD, 15));
 		showPass.setBounds(110, 310, 153, 21);
         showPass.setForeground(Color.white);
 		showPass.setOpaque(false);
@@ -78,22 +78,9 @@ public class UserLogin extends JFrame implements ActionListener {
         showPass.setFocusPainted(false);
 		bgLabel.add(showPass);
 
-        b = new JButton("Sign in");
-        b.setBounds(100, 360, 90, 35);
-        b.setFont(new Font("Arial", Font.BOLD, 14));
-        b.setBackground(Color.orange);
-        b.setFocusable(false);
-        b.setFocusPainted(false);
-        b.setBorderPainted(false);
-
-        b3 = new JButton("Sign up");
-        b3.setBounds(210, 360, 90, 35);
-        b3.setFont(new Font("Arial", Font.BOLD, 14));
-        b3.setBackground(Color.orange);
-        b3.setFocusable(false);
-        b3.setFocusPainted(false);
-        b3.setBorderPainted(false);
-
+        b=createButton("Sign in", 100);
+        b3=createButton("Sign up", 210);
+        
         b2 = new JButton();
         ImageIcon path = new ImageIcon("D:\\Project#2\\Quiz Platform\\qems\\Back.png");
         b2.setIcon(path);
@@ -105,7 +92,7 @@ public class UserLogin extends JFrame implements ActionListener {
 
         errorMsg = new JLabel();
         errorMsg.setForeground(Color.RED);
-        errorMsg.setBounds(80, 390, 300, 25);
+        errorMsg.setBounds(85, 410, 300, 25);
         errorMsg.setFont(new Font("Arial", Font.PLAIN, 14));
 
         bgLabel.add(l1);
@@ -127,6 +114,27 @@ public class UserLogin extends JFrame implements ActionListener {
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private JLabel createLabel(String text, int y) {
+        JLabel label = new JLabel(text);
+        label.setForeground(Color.WHITE);
+        label.setFont(new Font("Arial", Font.BOLD, 16));
+        label.setBounds(100, y, 100, 50);
+
+        return label;
+    }
+
+    private JButton createButton(String text, int x){
+        JButton button = new JButton(text);
+        button.setBounds(x, 360, 93, 33);
+        button.setFont(new Font("Arial", Font.BOLD, 15));
+        button.setBackground(Color.orange);
+        button.setFocusable(false);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+
+        return button;
     }
 
     @Override
@@ -180,9 +188,7 @@ public class UserLogin extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "User added successfully");
                     tf1.setText("");
                     ps.setText("");
-                    new UserDashboard();
-                    this.dispose();
-                    //new UserDashboard(uid, name);
+                    errorMsg.setText("    Now you can login!!");
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(this, "Error adding user to database", "Error",
                             JOptionPane.ERROR_MESSAGE);

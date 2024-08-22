@@ -7,19 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    /*
-     * public static void main(String[] args) throws SQLException {
-     * new DatabaseConnection();
-     * 
-     * Connection c = getConnection();
-     * 
-     * if (c != null) {
-     * System.out.println("success");
-     * } else {
-     * System.out.println("Failed");
-     * }
-     * }
-     */
 
     // URL = jdbc:postgresql://<host>:<port>/<database>
     private static String dbURL = "jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com:6543/postgres";
