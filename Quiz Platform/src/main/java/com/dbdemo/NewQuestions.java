@@ -25,6 +25,10 @@ public class NewQuestions extends JFrame implements ActionListener {
     JTextField t1, t2, t3, t4, t5;
     JTextArea ta;
 
+    public static void main(String[] args) {
+        new NewQuestions();
+    }
+
     public NewQuestions() {
         super("Add New Questions");
         setSize(850, 650);
@@ -49,67 +53,34 @@ public class NewQuestions extends JFrame implements ActionListener {
         b1.setFocusPainted(false);
         b1.setBorderPainted(false);
 
-        l1 = new JLabel("QUESTION");
-        l1.setForeground(Color.WHITE);
-        l1.setBounds(50, 20, 100, 90);
+        l1 = createLabel("QUESTION", 50, 20);
+
         ta = new JTextArea(8, 500);
         ta.setFont(new Font("Arial", Font.BOLD, 16));
         ta.setBounds(50, 85, 650, 55);
         ta.setBorder(BorderFactory.createLineBorder(Color.black, 4));
 
-        l2 = new JLabel("OPTION 1");
-        l2.setForeground(Color.WHITE);
-        l2.setBounds(90, 140, 100, 90);
-        t1 = new JTextField(20);
-        t1.setFont(new Font("Arial", Font.BOLD, 16));
-        t1.setBounds(90, 205, 200, 25);
-        t1.setBorder(BorderFactory.createLineBorder(Color.red, 4));
+        l2 = createLabel("OPTION 1", 90, 140);
+        t1 = createTextField(90, 205);
 
-        l3 = new JLabel("OPTION 2");
-        l3.setForeground(Color.WHITE);
-        l3.setBounds(410, 140, 100, 90);
-        t2 = new JTextField(20);
-        t2.setFont(new Font("Arial", Font.BOLD, 16));
-        t2.setBounds(410, 205, 200, 25);
-        t2.setBorder(BorderFactory.createLineBorder(Color.red, 4));
+        l3 = createLabel("OPTION 2", 410, 140);
+        t2 = createTextField(410, 205);
 
-        l4 = new JLabel("OPTION 3");
-        l4.setForeground(Color.WHITE);
-        l4.setBounds(90, 240, 100, 90);
-        t3 = new JTextField(20);
-        t3.setFont(new Font("Arial", Font.BOLD, 16));
-        t3.setBounds(90, 305, 200, 25);
-        t3.setBorder(BorderFactory.createLineBorder(Color.red, 4));
+        l4 = createLabel("OPTION 3", 90, 240);
+        t3 = createTextField(90, 305);
 
-        l5 = new JLabel("OPTION 4");
-        l5.setForeground(Color.WHITE);
-        l5.setBounds(410, 240, 100, 90);
-        t4 = new JTextField(20);
-        t4.setFont(new Font("Arial", Font.BOLD, 16));
-        t4.setBounds(410, 305, 200, 25);
-        t4.setBorder(BorderFactory.createLineBorder(Color.red, 4));
+        l5 = createLabel("OPTION 4", 410, 240);
+        t4 = createTextField(410, 305);
 
-        l6 = new JLabel("ANSWER");
-        l6.setForeground(Color.WHITE);
-        l6.setBounds(320, 330, 100, 90);
+        l6 = createLabel("ANSWER", 320, 330);
+        
         t5 = new JTextField(20);
         t5.setFont(new Font("Arial", Font.BOLD, 16));
         t5.setBounds(260, 395, 200, 25);
-        t5.setBorder(BorderFactory.createLineBorder(Color.BLUE, 4));
+        t5.setBorder(BorderFactory.createLineBorder(Color.blue, 4));
 
-        b2 = new JButton("ADD");
-        b2.setBounds(240, 470, 90, 30);
-        b2.setBackground(Color.green);
-        b2.setFocusable(false);
-        b2.setFocusPainted(false);
-        b2.setBorderPainted(false);
-
-        b3 = new JButton("RESET");
-        b3.setBounds(390, 470, 90, 30);
-        b3.setBackground(Color.green);
-        b3.setFocusable(false);
-        b3.setFocusPainted(false);
-        b3.setBorderPainted(false);
+        b2 = createButton("ADD", 240);
+        b3 = createButton("RESET", 390);
 
         msg = new JLabel();
         msg.setForeground(Color.RED);
@@ -142,6 +113,34 @@ public class NewQuestions extends JFrame implements ActionListener {
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private JButton createButton(String text, int x) {
+        JButton button = new JButton(text);
+        button.setBounds(x, 470, 90, 30);
+        button.setBackground(Color.green);
+        button.setFocusable(false);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+
+        return button;
+    }
+
+    private JLabel createLabel(String text, int x, int y) {
+        JLabel label = new JLabel(text);
+        label.setForeground(Color.WHITE);
+        label.setBounds(x, y, 100, 90);
+
+        return label;
+    }
+
+    private JTextField createTextField(int x, int y) {
+        JTextField tf = new JTextField(20);
+        tf.setFont(new Font("Arial", Font.BOLD, 16));
+        tf.setBounds(x, y, 200, 25);
+        tf.setBorder(BorderFactory.createLineBorder(Color.red, 4));
+
+        return tf;
     }
 
     @Override

@@ -18,9 +18,9 @@ public class AdminDashBoard extends JFrame implements ActionListener {
     JButton b1, b2, b3, b4, b5;
     DefaultTableModel model;
 
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         new AdminDashBoard();
-    }*/
+    }
 
     public AdminDashBoard() {
         super("Admin DashBoard");
