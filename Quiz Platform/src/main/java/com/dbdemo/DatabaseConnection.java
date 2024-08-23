@@ -52,7 +52,7 @@ public class DatabaseConnection {
         ResultSet rs = null;
         try {
             Connection con = getConnection();
-            String query = "Select * from leaderboard";
+            String query = "Select * from leaderboard ORDER BY score DESC";
             Statement st = con.createStatement();
             rs = st.executeQuery(query);
         } catch (SQLException e) {
